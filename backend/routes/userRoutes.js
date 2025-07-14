@@ -1,6 +1,11 @@
 import express from "express"
 import User from "../models/User.js";
 
+export const loggedUser = {
+    id: null,
+    value: null
+};
+
 const userRouter = express.Router();
 
 userRouter.post('/signup', async (req, res) => {
@@ -33,7 +38,9 @@ userRouter.post('/login', async (req, res) => {
 
         if (query) {
 
-            res.status(200).json(`Logged in as ${query.username}!`);
+            loggedUser.id = query.id;
+            loggedUser.value = query.username;
+            res.status(200).json(`Logged in as ${loggedUser.value}!`);
 
         } else {
 
@@ -45,6 +52,21 @@ userRouter.post('/login', async (req, res) => {
         res.status(401).json({message: error.message});
         
     }
+});
+
+userRouter.post('/logout', async (req, res) => {
+    
+    if (loggedUser.value) {
+
+        loggedUser.id = null, loggedUser.value = null;
+        res.status(200).json({message: "Logout Successful!"});
+
+    } else {
+
+        res.status(401).json({message: "You're not logged in..."});
+        
+    }
+
 });
 
 export default userRouter;
