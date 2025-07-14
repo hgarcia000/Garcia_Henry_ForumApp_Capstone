@@ -26,13 +26,14 @@ userRouter.post('/signup', async (req, res) => {
 userRouter.post('/login', async (req, res) => {
     try {
         
-        const query = await User.findOne({email: req.body.email});
+        const query = await User.findOne({
+            email: req.body.email,
+            password: req.body.password
+        });
 
-        if (query && query.password === req.body.password) {
+        if (query) {
 
-            userName.id = query._id;
-            userName.value = query.username;
-            res.status(200).json(`Logged in as ${userName.value}!`);
+            res.status(200).json(`Logged in as ${query.username}!`);
 
         } else {
 
