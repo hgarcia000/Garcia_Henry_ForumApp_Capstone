@@ -48,4 +48,4 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.model('User', userSchema,'forum');
+export default mongoose.model('User', userSchema,'users');
