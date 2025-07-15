@@ -8,6 +8,37 @@ export const loggedUser = {
 
 const userRouter = express.Router();
 
+userRouter.get('/', async (req, res) => {
+
+    try {
+
+        const query = await User.find({}).select('-password');
+    
+        res.status(200).json(query);
+
+    } catch (error) {
+        res.status(400).json({message: error.message});
+    }
+
+});
+
+userRouter.get('/:id', async (req, res) => {
+
+    try {
+        const query = await User.findById(req.params.id).select('-password');
+    
+        if (!query._id) {
+            throw new Error("User not found!");
+        }
+
+        res.status(200).json(query);
+
+    } catch (error) {
+        res.status(404).json({message: error.message});
+    }
+
+});
+
 userRouter.post('/signup', async (req, res) => {
     try {
         const userDoc = new User({
