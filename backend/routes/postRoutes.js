@@ -29,7 +29,7 @@ postRouter.get('/:id', async (req, res) => {
     } catch (error) {
         res.status(404).json({message: error.message});
     }
-})
+});
 
 postRouter.post('/createThread', async (req, res) => {
     try {
@@ -103,6 +103,6 @@ postRouter.post('/addComment/:id', async (req, res) => {
     } catch (error) {
         res.status(400).json({message: error.message});
     }
-})
+});
 
 export default postRouter;
