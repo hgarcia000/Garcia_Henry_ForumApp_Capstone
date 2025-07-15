@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    // Password: Consider using bcrypt to encrypt the password
     password: {
         type: String,
         required: true,
@@ -22,6 +23,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "Member"
     },
+    // authorizationLevel[ 0: Banned, 1: Member, 2: Moderator, 3: Admin]
     authorizationLevel:{
         type: Number,
         default: 1
