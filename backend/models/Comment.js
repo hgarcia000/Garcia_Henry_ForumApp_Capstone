@@ -3,6 +3,10 @@ import { loggedUser } from "../routes/userRoutes.js";
 
 
 export const commentSchema = new mongoose.Schema({
+    thread_id:{
+        type: String,
+        required: true
+    },
     body: {
         type: String,
         required: true

@@ -88,8 +88,15 @@ postRouter.patch('/lockUnlockThread/:id', async (req, res) => {
 
 postRouter.post('/addComment/:id', async (req, res) => {
     try {
+
+        const threadCheck = await Post.findById(req.params.id)
+
+        if (!threadCheck) {
+            throw new Error("Thread Not Found!");
+        }
         
         const commentDoc = new Comment({
+            thread_id: req.params.id,
             body: req.body.body,
             postedBy: loggedUser.value? loggedUser.value : req.body.postedBy
         });
@@ -99,7 +106,7 @@ postRouter.post('/addComment/:id', async (req, res) => {
         const thread = await Post.findByIdAndUpdate(req.params.id, {$push: {comments: result}});
 
         res.status(201).json(thread);
-        
+
     } catch (error) {
         res.status(400).json({message: error.message});
     }
