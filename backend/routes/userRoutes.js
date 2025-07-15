@@ -69,4 +69,17 @@ userRouter.post('/logout', async (req, res) => {
 
 });
 
+// Set authorization level
+userRouter.patch('/authLevel/:id', async (req, res) => {  
+    try {
+
+        const user = await User.findByIdAndUpdate(req.params.id,{authorizationLevel: Number(req.body.authLevel)});
+
+        res.status(200).json({id: user._id, username: user.username, authorizationLevel: user.authorizationLevel});
+
+    } catch (error) {
+        res.status(404).json({message: error.message});
+    }
+});
+
 export default userRouter;
