@@ -3,6 +3,7 @@ import 'dotenv/config';
 import mongoose from 'mongoose';
 import userRouter from './routes/userRoutes.js';
 import cors from 'cors';
+import postRouter from './routes/postRoutes.js';
 
 const app = express();
 
@@ -15,6 +16,7 @@ await mongoose.connect(process.env.MONGO_URI);
 console.log(Date(), ' : MongoDB Connected!');
 
 app.use('/api/users', userRouter);
+app.use('/api/posts', postRouter);
 
 app.listen(PORT, () => {
     console.log('Server running on port', PORT);
