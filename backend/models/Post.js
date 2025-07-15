@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { commentSchema } from "./Comment";
+import { loggedUser } from "../routes/userRoutes.js";
 
 
 const postSchema = new mongoose.Schema({
@@ -22,6 +23,13 @@ const postSchema = new mongoose.Schema({
     postedAt: {
         type: Date,
         default: Date.now
+    },
+    editedAt : {
+        type: Date
+    },
+    isLocked : {
+        type: Boolean,
+        default: false
     },
     comments: [commentSchema]
 

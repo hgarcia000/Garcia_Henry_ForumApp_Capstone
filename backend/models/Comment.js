@@ -14,7 +14,10 @@ export const commentSchema = new mongoose.Schema({
     postedAt: {
         type: Date,
         default: Date.now
+    },
+    editedAt : {
+        type: Date
     }
 });
 
-export default mongoose.model('Comment', commentSchema);
+export default mongoose.model('Comment', commentSchema, 'comments');
