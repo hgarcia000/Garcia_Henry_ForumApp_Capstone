@@ -71,7 +71,19 @@ commentRouter.put('/edit/:id', async (req, res) => {
 
 // Delete comment.
 commentRouter.delete('/delete/:id', async (req, res) => {
-    
+    try {
+        
+        const commDelete = await Comment.findByIdAndDelete(req.params.id);
+
+        await Post.findOneAndUpdate(
+            {_id: commDelete.thread_id}, 
+            {$pull: {comments: commDelete}}
+        );
+
+        res.status(200).json(commDelete);
+    } catch (error) {
+        
+    }
 });
 
 export default commentRouter;
