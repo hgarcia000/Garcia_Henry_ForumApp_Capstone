@@ -69,6 +69,11 @@ userRouter.post('/login', async (req, res) => {
 
         if (query) {
 
+            // Condition to check if the user is banned.
+            if (query.authorizationLevel === 0) {
+                throw new Error("This user is banned!");
+            }
+
             loggedUser.id = query.id;
             loggedUser.value = query.username;
             res.status(200).json(`Logged in as ${loggedUser.value}!`);
