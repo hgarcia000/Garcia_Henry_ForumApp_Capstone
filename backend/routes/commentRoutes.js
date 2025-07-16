@@ -1,5 +1,6 @@
 import express from "express"
 import Comment from "../models/Comment.js";
+import Post from "../models/Post.js";
 
 const commentRouter = express.Router();
 
@@ -47,7 +48,25 @@ commentRouter.get('/findBy', async (req, res) => {
 
 // Edit comment.
 commentRouter.put('/edit/:id', async (req, res) => {
-    
+    try {
+
+        await Comment.findByIdAndUpdate(req.params.id, {
+            body: req.body.body,
+            editedAt: new Date()
+        });
+
+        const updatedComment = await Comment.findById(req.params.id);
+
+        await Post.findOneAndUpdate(
+            {_id: updatedComment.thread_id, 'comments._id': updatedComment._id},
+            {$set: {'comments.$.body': updatedComment.body, 'comments.$.editedAt': updatedComment.editedAt}}
+        );
+
+        res.status(200).json(updatedComment);
+
+    } catch (error) {
+        res.status(400).json({message: error.message});
+    }
 });
 
 // Delete comment.
