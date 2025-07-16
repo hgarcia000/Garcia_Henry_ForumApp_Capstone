@@ -105,6 +105,40 @@ userRouter.post('/logout', async (req, res) => {
 
 });
 
+// Edit your user information.
+userRouter.put('/editInfo/:id', async (req, res) => {  
+    try {
+
+        const user = await User.findByIdAndUpdate(req.params.id,
+            {
+                title: req.body.title,
+                location: req.body.location,
+                about: req.body.about,
+                img: req.body.img,
+                signature: req.body.img
+            }
+        ).select('-password');
+
+        res.status(200).json(user);
+
+    } catch (error) {
+        res.status(404).json({message: error.message});
+    }
+});
+
+// Change passowrd
+userRouter.patch('/changePassword/:id', async (req, res) => {  
+    try {
+
+        const user = await User.findByIdAndUpdate(req.params.id,{password: req.body.password});
+
+        res.status(200).json({message: "Password changed successfully!"});
+
+    } catch (error) {
+        res.status(404).json({message: error.message});
+    }
+});
+
 // Set authorization level
 userRouter.patch('/authLevel/:id', async (req, res) => {  
     try {
