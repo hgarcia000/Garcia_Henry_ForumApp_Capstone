@@ -39,8 +39,9 @@ commentRouter.get('/findBy', async (req, res) => {
             throw new Error("Please Enter a Username!");            
         }
         const query = await Comment.find({postedBy: req.query.username});
+        const query2 = await Post.find({postedBy: req.query.username}).select('-comments');
 
-        res.status(200).json(query);
+        res.status(200).json([...query, ...query2]);
     } catch (error) {
         res.status(404).json({message: error.message});
     }
