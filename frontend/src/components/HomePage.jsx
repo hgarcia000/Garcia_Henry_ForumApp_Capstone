@@ -1,8 +1,30 @@
+// import PostList from "./PostList";
+import axios from 'axios';
+import { useEffect } from 'react';
 
-function HomePage(){
+const URL = import.meta.env.VITE_BASEURL
 
-    return(
-        <h1>HomePage Component</h1>
+function HomePage() {
+
+    const getPostData = async () => {
+        try {
+            const result = await axios.get(`${URL}/api/posts/`);
+
+            console.log(result.data);
+        } catch (error) {
+            
+            console.log('ERROR:', error.message);
+
+        }
+
+    }
+
+    useEffect(() => {getPostData()}, []);
+    return (
+        <>
+            <h1>HomePage Component</h1>
+            {/* <PostList /> */}
+        </>
     )
 }
 
