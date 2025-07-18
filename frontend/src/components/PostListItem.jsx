@@ -1,9 +1,18 @@
+import ListItem from "@mui/material/ListItem";
+import { Link } from "react-router-dom";
 
 
-function PostListItem(){
+function PostListItem({ id, title, postedBy }) {
 
-    return(
-        <h1>PostListItem Component</h1>
+    return (
+        <ListItem>
+            <Link to={'/post'}>
+            <div>
+                <h4>{title}</h4>
+                <div><i> Posted by: {postedBy} </i> </div>
+            </div>
+            </Link>
+        </ListItem>
     )
 }
 
