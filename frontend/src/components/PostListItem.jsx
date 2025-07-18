@@ -6,7 +6,7 @@ function PostListItem({ id, title, postedBy }) {
 
     return (
         <ListItem>
-            <Link to={'/post'}>
+            <Link to={'/post/' + id}>
             <div>
                 <h4>{title}</h4>
                 <div><i> Posted by: {postedBy} </i> </div>
