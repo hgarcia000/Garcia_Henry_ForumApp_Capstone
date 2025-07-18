@@ -1,9 +1,13 @@
+import NavBar from "./NavBar";
 
 
-function Post(){
+function Post() {
 
-    return(
-        <h1>Post Component</h1>
+    return (
+        <>
+            <NavBar />
+            <h1>Post Component</h1>
+        </>
     )
 }
 

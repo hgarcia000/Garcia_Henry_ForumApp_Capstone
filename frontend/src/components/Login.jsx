@@ -1,9 +1,13 @@
+import NavBar from "./NavBar";
 
 
-function Login(){
+function Login() {
 
-    return(
-        <h1>Login Component</h1>
+    return (
+        <>
+            <NavBar />
+            <h1>Login Component</h1>
+        </>
     )
 }
 
