@@ -19,7 +19,7 @@ function App() {
         <Route path='/' element={<HomePage />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/profile/:id' element={<Profile />} />
         <Route path='/post/:id' element={<Post />} />
       </Routes>
     </UserContext.Provider>
