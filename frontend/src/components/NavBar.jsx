@@ -16,15 +16,15 @@ function NavBar() {
                 <Toolbar>
                     <Typography variant="div" sx={{ flexGrow: 1 }}>
                         <Link to={'/'}>
-                         <Typography style={{color: 'white'}}>Home</Typography>
+                         <Typography className="nav-link" >Home</Typography>
                         </Link>
                          </Typography>
                     <Typography sx={{ flexGrow: 1 }}>Users</Typography>
                     <Typography variant="div" sx={{ flexGrow: 1 }}>
-                        {currentUser ? <Link to={'/profile'}>
-                        <Typography style={{color: 'white'}}>Profile</Typography>
+                        {currentUser ? <Link to={'/profile/' + currentUser._id}>
+                        <Typography className="nav-link">Profile</Typography>
                         </Link> : <Link to={'/login'}>
-                        <Typography style={{color: 'white'}}>Login</Typography>
+                        <Typography className="nav-link" >Login</Typography>
                         </Link>}
                     </Typography>
                 </Toolbar>
