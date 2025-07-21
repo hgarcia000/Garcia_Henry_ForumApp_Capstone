@@ -30,12 +30,25 @@ function Profile() {
         }
     }
 
-    useEffect(() => { getData() }, [])
+    useEffect(() => { getData() }, []);
+
+    const ProfileJSX = () => {
+        return(
+            <>
+            <h1>{profile.username}</h1>
+            <div><i>{profile.title}</i></div>
+            {profile.location ? <div>Location: {profile.location}</div> : ''}
+            {profile.about ? <div>About: {profile.about}</div> : ''}
+            <div>Joined at: {profile.joinedAt}</div>
+            </>
+        )
+    }
 
     return(
         <>
         <NavBar />
         <h1>Profile Component</h1>
+        <ProfileJSX />
         </>
     )
 }
