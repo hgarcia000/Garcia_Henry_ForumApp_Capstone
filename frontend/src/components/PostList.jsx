@@ -30,10 +30,10 @@ function PostList() {
 
     const list = arr.map(element => {
         return (
-        <>
+        <div key={arr.indexOf(element)}>
             <PostListItem key={arr.indexOf(element)} id={element._id} title={element.title} postedBy={element.postedBy} />
             {(arr.indexOf(element) !== arr.length - 1) ? <Divider /> : ""}
-        </>
+        </div>
         );
     });
     

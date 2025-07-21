@@ -10,13 +10,13 @@ function NavBar() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar>
                 <Toolbar>
-                    <Typography sx={{ flexGrow: 1 }}>
+                    <Typography variant="div" sx={{ flexGrow: 1 }}>
                         <Link to={'/'}>
                          <Typography style={{color: 'white'}}>Home</Typography>
                         </Link>
                          </Typography>
                     <Typography sx={{ flexGrow: 1 }}>Users</Typography>
-                    <Typography sx={{ flexGrow: 1 }}>
+                    <Typography variant="div" sx={{ flexGrow: 1 }}>
                         <Link to={'/login'}>
                         <Typography style={{color: 'white'}}>Login</Typography>
                         </Link>
