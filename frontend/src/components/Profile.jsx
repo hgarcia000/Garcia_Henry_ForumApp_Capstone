@@ -1,7 +1,36 @@
+import { useParams } from "react-router-dom";
 import NavBar from "./NavBar";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 
 function Profile() {
+
+    const params = useParams();
+    const id = params.id;
+    const URL = `${import.meta.env.VITE_BASEURL}/api/users/${id}`;
+
+    const [profile, setProfile] = useState({
+        _id: '',
+        username: '',
+        title: '',
+        authoriztionLevel: '',
+        location: '',
+        about: '',
+        joinedAt: ''
+    });
+
+    const getData = async () => {
+        try {
+            const result = await axios.get(URL);
+            console.log(result.data);
+            setProfile(result.data);
+        } catch (error) {
+            console.log('ERROR:', error.message);
+        }
+    }
+
+    useEffect(() => { getData() }, [])
 
     return(
         <>
