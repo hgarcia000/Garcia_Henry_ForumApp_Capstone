@@ -12,7 +12,7 @@ userRouter.get('/', async (req, res) => {
 
     try {
 
-        const query = await User.find({}).select('-password');
+        const query = await User.find({}).select('-password -email');
     
         res.status(200).json(query);
 
@@ -25,7 +25,7 @@ userRouter.get('/', async (req, res) => {
 userRouter.get('/:id', async (req, res) => {
 
     try {
-        const query = await User.findById(req.params.id).select('-password');
+        const query = await User.findById(req.params.id).select('-password -email');
     
         if (!query._id) {
             throw new Error("User not found!");
