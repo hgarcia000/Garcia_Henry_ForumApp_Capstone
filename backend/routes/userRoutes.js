@@ -65,7 +65,7 @@ userRouter.post('/login', async (req, res) => {
         const query = await User.findOne({
             email: req.body.email,
             password: req.body.password
-        });
+        }).select('-password');
 
         if (query) {
 
@@ -76,7 +76,7 @@ userRouter.post('/login', async (req, res) => {
 
             loggedUser.id = query.id;
             loggedUser.value = query.username;
-            res.status(200).json(`Logged in as ${loggedUser.value}!`);
+            res.status(200).json(query);
 
         } else {
 
