@@ -41,7 +41,7 @@ function Login() {
     return (
         <>
             <NavBar />
-            <h1>Login Component</h1>
+            <h1>Login</h1>
             <Box sx={{ border: '2px solid #111', borderRadius: '15px', bgcolor: '#ccc' }}>
                 <div>
 

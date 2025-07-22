@@ -54,7 +54,7 @@ function EditProfile({ profile, setVisible, userId }) {
                         <form onChange={handleChange} onSubmit={handleSubmit}>
                             <TextField focused name="title" id="title" label="Title" margin="normal" defaultValue={profile.title} /> <br />
                             <TextField focused name="location" id="location" label="Location" margin="normal" defaultValue={profile.location} /> <br />
-                            <TextField focused fullWidth name="about" id="about" label="About" margin="normal" defaultValue={profile.about} /> <br />
+                            <TextField focused sx={{width: '98%'}} name="about" id="about" label="About" margin="normal" defaultValue={profile.about} /> <br />
                             <Button disabled={JSON.stringify(formData) === JSON.stringify(profile)} variant="contained" type="submit" sx={{ marginBottom: '1rem' }}>Save</Button> <br />
                         </form>
                         <Button color="secondary" type="button" sx={{ marginBottom: '1rem', marginRight: '22rem', height: '20px' }} onClick={() => {
