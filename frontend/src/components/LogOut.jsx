@@ -3,7 +3,7 @@ import { UserContext } from "../UserContext";
 import { useNavigate } from "react-router-dom";
 
 
-function LogOut() {
+function Logout() {
 
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const navigate = useNavigate();
@@ -26,4 +26,4 @@ function LogOut() {
     )
 }
 
-export default LogOut;
+export default Logout;
