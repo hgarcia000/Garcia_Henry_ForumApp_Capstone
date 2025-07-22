@@ -3,6 +3,8 @@ import NavBar from "./NavBar";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../UserContext";
+import EditProfile from "./EditProfile";
+import Button from "@mui/material/Button";
 
 
 function Profile() {
@@ -11,6 +13,7 @@ function Profile() {
     const params = useParams();
     const id = params.id;
     const URL = `${import.meta.env.VITE_BASEURL}/api/users/${id}`;
+    const [visible, setVisible] = useState(false);
 
     const [profile, setProfile] = useState({
         _id: '',
@@ -32,14 +35,14 @@ function Profile() {
         }
     }
 
-    useEffect(() => { getData() }, []);
+    useEffect(() => { getData() }, [visible]);
 
     const ProfileJSX = () => {
         return(
             <>
             <h1>{profile.username}</h1>
+            {currentUser && currentUser._id == id ? <Button onClick={() => {setVisible(true)}}>Edit profile</Button> : ''}
             <div><i>{profile.title}</i></div>
-            {currentUser && currentUser._id == id ? <div>Edit profile</div> : ''}
             {profile.location ? <div>Location: {profile.location}</div> : ''}
             {profile.about ? <div>About: {profile.about}</div> : ''}
             <div>Joined at: {profile.joinedAt}</div>
@@ -51,7 +54,8 @@ function Profile() {
         <>
         <NavBar />
         <h1>Profile Component</h1>
-        <ProfileJSX />
+        {!visible ? <ProfileJSX /> : ''}
+        {visible ? <EditProfile profile={profile} setVisible={setVisible} userId={id} /> : ''}
         </>
     )
 }
