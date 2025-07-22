@@ -21,7 +21,7 @@ function ChangePassword({ setVisible, setIsSwitched, setMsg, userId }) {
         try {
             e.preventDefault();
             if (formData2.password !== formData2.confirmPassword) {
-                throw new Error("Passwords must match!")
+                throw new Error("Passwords must match!");
             }
             await axios.patch(URL2, formData2);
             setMsg({
