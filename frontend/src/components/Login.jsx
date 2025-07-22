@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { UserContext } from "../UserContext.js";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const URL = import.meta.env.VITE_BASEURL;
 
@@ -27,10 +27,10 @@ function Login() {
             };
 
             const result = await axios.post(`${URL}/api/users/login`, form);
-            const {_id, username} = result.data;
-            setCurrentUser({_id, username});
+            const { _id, username } = result.data;
+            setCurrentUser({ _id, username });
             navigate('/');
-            
+
         } catch (error) {
             console.log('ERROR:', error.message);
             setMsg("Incorrect Email or Password!");
@@ -54,6 +54,9 @@ function Login() {
                         <Typography color="error"><i>{msg}</i></Typography>
                     </form>
                 </div>
+                <Link to={'/signup'}>
+                    <Button color="secondary">Don't have an account? Click here to sign up!</Button>
+                </Link>
             </Box>
         </>
     )
