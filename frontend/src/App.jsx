@@ -7,7 +7,7 @@ import Login from './components/Login'
 import Profile from './components/Profile'
 import Post from './components/Post'
 import { UserContext } from './UserContext.js'
-import Logout from './components/LogOut.jsx'
+import LogOut from './components/LogOut.jsx'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -20,7 +20,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/profile/:id' element={<Profile />} />
         <Route path='/post/:id' element={<Post />} />
-        <Route path='/logout' element={<Logout />} />
+        <Route path='/logout' element={<LogOut />} />
       </Routes>
     </UserContext.Provider>
   )
