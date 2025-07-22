@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
 import NavBar from "./NavBar";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { UserContext } from "../UserContext";
 
 
 function Profile() {
 
+    const {currentUser} = useContext(UserContext);
     const params = useParams();
     const id = params.id;
     const URL = `${import.meta.env.VITE_BASEURL}/api/users/${id}`;
@@ -37,6 +39,7 @@ function Profile() {
             <>
             <h1>{profile.username}</h1>
             <div><i>{profile.title}</i></div>
+            {currentUser && currentUser._id == id ? <div>Edit profile</div> : ''}
             {profile.location ? <div>Location: {profile.location}</div> : ''}
             {profile.about ? <div>About: {profile.about}</div> : ''}
             <div>Joined at: {profile.joinedAt}</div>
