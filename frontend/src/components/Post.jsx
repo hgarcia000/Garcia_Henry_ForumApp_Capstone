@@ -41,7 +41,7 @@ function Post() {
         return (
             <Box width={950}  sx={{ border: '2px solid #111', borderRadius: '3px', bgcolor: '#555' }}>
                 <Typography variant="h3">{post.title}</Typography>
-                <Link to={`/user/${post.postedBy}`}><Typography color="primary" marginLeft={1} fontWeight={'bold'} textAlign={'justify'} ><i> {post.postedBy} </i></Typography></Link>
+                <Link to={`/user/${post.postedBy}`}><Typography color="primary" sx={{":hover": {color: "#535bf2"}}} marginLeft={1} fontWeight={'bold'} textAlign={'justify'} ><i> {post.postedBy} </i></Typography></Link>
                 <Divider />
                 <Typography padding={2} minHeight={200} sx={{textAlign:'justify', bgcolor: '#333' }}>{post.body}</Typography>
                 <Divider />
