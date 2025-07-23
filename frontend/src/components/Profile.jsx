@@ -12,7 +12,9 @@ function Profile() {
     const {currentUser} = useContext(UserContext);
     const params = useParams();
     const id = params.id;
+    const uName = params.username;
     const URL = `${import.meta.env.VITE_BASEURL}/api/users/${id}`;
+    const URL2 = `${import.meta.env.VITE_BASEURL}/api/users?username=${uName}`;
     const [visible, setVisible] = useState(false);
 
     const [profile, setProfile] = useState({
@@ -27,9 +29,15 @@ function Profile() {
 
     const getData = async () => {
         try {
-            const result = await axios.get(URL);
-            console.log(result.data);
-            setProfile(result.data);
+            if (id) {
+                const result = await axios.get(URL);
+                console.log(result.data);
+                setProfile(result.data);
+            } else {
+                const result = await axios.get(URL2);
+                console.log(result.data);
+                setProfile(result.data);
+            }
         } catch (error) {
             console.log('ERROR:', error.message);
         }

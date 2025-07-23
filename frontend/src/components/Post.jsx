@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import NavBar from "./NavBar";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -41,7 +41,7 @@ function Post() {
         return (
             <Box width={950}  sx={{ border: '2px solid #111', borderRadius: '3px', bgcolor: '#555' }}>
                 <Typography variant="h3">{post.title}</Typography>
-                <Typography marginLeft={1} textAlign={'justify'} ><i> {post.postedBy} </i></Typography>
+                <Link to={`/user/${post.postedBy}`}><Typography color="primary" marginLeft={1} fontWeight={'bold'} textAlign={'justify'} ><i> {post.postedBy} </i></Typography></Link>
                 <Divider />
                 <Typography padding={2} minHeight={200} sx={{textAlign:'justify', bgcolor: '#333' }}>{post.body}</Typography>
                 <Divider />
