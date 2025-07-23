@@ -11,10 +11,15 @@ const userRouter = express.Router();
 userRouter.get('/', async (req, res) => {
 
     try {
+        if (req.query.username) {
+            const user = await User.findOne({username: req.query.username}).select('-password -email');
 
-        const query = await User.find({}).select('-password -email');
-    
-        res.status(200).json(query);
+            res.status(200).json(user);
+        } else {
+            const query = await User.find({}).select('-password -email');
+        
+            res.status(200).json(query);
+        }
 
     } catch (error) {
         res.status(400).json({message: error.message});
