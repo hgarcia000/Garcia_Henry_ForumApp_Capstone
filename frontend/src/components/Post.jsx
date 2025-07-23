@@ -1,18 +1,20 @@
 import { Link, useParams } from "react-router-dom";
 import NavBar from "./NavBar";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
-import Fab from "@mui/material/Fab";
 import AddIcon from '@mui/icons-material/Add';
+import CancelIcon from '@mui/icons-material/Cancel';
+import { UserContext } from "../UserContext";
+import CommentForm from "./CommentForm";
 
 
 function Post() {
     
-    
+    const {currentUser} = useContext(UserContext);
     const params = useParams();
     const paramsId = params.id;
     const URL = `${import.meta.env.VITE_BASEURL}/api/posts/${paramsId}`;
@@ -26,6 +28,17 @@ function Post() {
         editedAt: "",
         comments: []
     });
+    const [isHidden, setIsHidden] = useState(true);
+
+    const formRef = useRef(null);
+
+    const handleHidden = () => {
+
+        setIsHidden(isHidden => !isHidden);
+        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    }
+
 
 
     const getPost = async () => {
@@ -38,7 +51,7 @@ function Post() {
         }
     }
 
-    useEffect(() => { getPost()}, []);
+    useEffect(() => { getPost()}, [isHidden]);
 
     const PostJSX = () => {
         return (
@@ -56,7 +69,7 @@ function Post() {
 
     const commentJSX = post.comments.map(element => {
         return(
-        <Box width={950}  sx={{ border: '2px solid #111', borderRadius: '3px', bgcolor: '#555' }}>
+        <Box key={post.comments.indexOf(element)} width={950}  sx={{ border: '2px solid #111', borderRadius: '3px', bgcolor: '#555' }}>
             <Link to={`/user/${element?.postedBy}`}><Typography color="primary" sx={{":hover": {color: "#535bf2"}}} marginLeft={1} fontWeight={'bold'} textAlign={'justify'} ><i> {element?.postedBy} </i></Typography></Link>
                 <Divider />
                 <Typography padding={2} minHeight={200} sx={{textAlign:'justify', bgcolor: '#333' }}>{element?.body}</Typography>
@@ -69,10 +82,11 @@ function Post() {
     return (
         <>
             <NavBar />
-            <Button sx={{marginBottom: 1}} variant="outlined"> <AddIcon /> Reply to Thread</Button>
+            {currentUser ? <Button color={isHidden ? 'primary' : 'error' } onClick={handleHidden} sx={{marginBottom: 1}} variant="outlined"> {isHidden ? <AddIcon /> : <CancelIcon />} {isHidden ? 'Reply to Thread' : 'Cancel Reply'}</Button> : ''}
             <PostJSX />
             {post.comments.length > 0 ? commentJSX : ''}
-            <Button sx={{marginTop: 1}} variant="outlined" s> <AddIcon /> Reply to Thread</Button>
+            {currentUser ? <Button color={isHidden ? 'primary' : 'error' } onClick={handleHidden} sx={{marginBottom: 1}} variant="outlined"> {isHidden ? <AddIcon /> : <CancelIcon />} {isHidden ? 'Reply to Thread' : 'Cancel Reply'}</Button> : ''}
+            <div ref={formRef}>{!isHidden ? <CommentForm paramsId={paramsId} handleHidden={handleHidden} /> : ''}</div>
         </>
     )
 }
