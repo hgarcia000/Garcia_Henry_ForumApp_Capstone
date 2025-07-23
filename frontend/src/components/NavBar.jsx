@@ -34,6 +34,7 @@ function NavBar() {
                     </Typography>
                 </Toolbar>
             </AppBar>
+            <Toolbar />
         </Box>
     )
 }
