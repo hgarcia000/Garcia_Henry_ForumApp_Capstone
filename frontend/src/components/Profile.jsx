@@ -5,6 +5,9 @@ import axios from "axios";
 import { UserContext } from "../UserContext";
 import EditProfile from "./EditProfile";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
 
 
 function Profile() {
@@ -47,14 +50,24 @@ function Profile() {
 
     const ProfileJSX = () => {
         return (
-            <>
-                <h1>{profile.username}'s Profile</h1>
+            <Box sx={{ border: '2px solid #111', borderRadius: '1px', bgcolor: '#555' }}>
+                {/* <h1>{profile.username}'s Profile</h1> */}
+                <Typography variant="h1" sx={{ border: '2px solid #111', bgcolor: '#111' }}>{profile.username}'s Profile</Typography>
                 {currentUser && currentUser._id == id ? <Button onClick={() => { setVisible(true) }}>Edit profile</Button> : ''}
-                <div><i>{profile.title}</i></div>
+                <Typography variant="div" sx={{ fontStyle: 'italic' }}>{profile.title}</Typography>
+                <Divider />
                 {profile.location ? <div>Location: {profile.location}</div> : ''}
-                {profile.about ? <div>About: {profile.about}</div> : ''}
+                <Divider />
                 <div>Joined at: {profile.joinedAt}</div>
-            </>
+                {profile.about ?
+                <>
+                <Typography variant="h5" sx={{ fontStyle: 'italic', bgcolor: '#212121', textAlign:'left' }}>About me</Typography>
+                <Divider />
+                 <div>{profile.about}</div>
+                </>
+                  : ''}
+                <Divider />
+            </Box>
         )
     }
 
