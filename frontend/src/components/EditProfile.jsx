@@ -13,11 +13,13 @@ function EditProfile({ profile, setVisible, userId }) {
     const [formData, setFormData] = useState({ ...profile });
     const [isSwitched, setIsSwitched] = useState(false);
 
+    // Validation message for a more user-friendly experience.
     const [msg, setMsg] = useState({
         text: '',
         color: ''
     });
 
+    // Function to set the form data state when the input is changed.
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -26,6 +28,7 @@ function EditProfile({ profile, setVisible, userId }) {
         });
     }
 
+    // Function to handle the editing of a profile.
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
@@ -47,6 +50,7 @@ function EditProfile({ profile, setVisible, userId }) {
     return (
         <>
             <Box sx={{ border: '2px solid #111', borderRadius: '15px', bgcolor: '#ccc' }}>
+                {/* Conditional rendering to see whether or not a user wishes to change their password */}
                 {isSwitched ?
                     <ChangePassword setIsSwitched={setIsSwitched} setMsg={setMsg} userId={userId} setVisible={setVisible} />
                     :
@@ -54,7 +58,7 @@ function EditProfile({ profile, setVisible, userId }) {
                         <form onChange={handleChange} onSubmit={handleSubmit}>
                             <TextField focused name="title" id="title" label="Title" margin="normal" defaultValue={profile.title} /> <br />
                             <TextField focused name="location" id="location" label="Location" margin="normal" defaultValue={profile.location} /> <br />
-                            <TextField focused sx={{width: '98%'}} name="about" id="about" label="About" margin="normal" defaultValue={profile.about} /> <br />
+                            <TextField focused sx={{ width: '98%' }} name="about" id="about" label="About" margin="normal" defaultValue={profile.about} /> <br />
                             <Button disabled={JSON.stringify(formData) === JSON.stringify(profile)} variant="contained" type="submit" sx={{ marginBottom: '1rem' }}>Save</Button> <br />
                         </form>
                         <Button color="secondary" type="button" sx={{ marginBottom: '1rem', marginRight: '22rem', height: '20px' }} onClick={() => {

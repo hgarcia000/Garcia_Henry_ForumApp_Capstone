@@ -8,7 +8,9 @@ function LogOut() {
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const navigate = useNavigate();
 
+    // Function to handle logging out a user.
     useEffect(() => {
+        // If the user is already logged out, navigate them to the home page.
         if (!currentUser) {
             navigate('/');
         }

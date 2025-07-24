@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import List from '@mui/material/List'
-import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import PostListItem from "./PostListItem";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const URL = import.meta.env.VITE_BASEURL
 
@@ -11,13 +12,13 @@ function PostList() {
 
     const [arr, setArr] = useState([]);
 
+    // Function to be called when the component is first mounted.
     const getPostData = async () => {
         try {
             const result = await axios.get(`${URL}/api/posts/`);
 
-            console.log(result.data);
-
-            setArr(result.data);
+            // Reversing the result array so that the newest posts are shown first.
+            setArr(result.data.reverse());
         } catch (error) {
 
             console.log('ERROR:', error.message);
@@ -26,26 +27,26 @@ function PostList() {
 
     }
 
+    // Retrieving the data from the server.
     useEffect(() => { getPostData() }, []);
 
+    // Mapping the state array to individual JSX elements.
     const list = arr.map(element => {
         return (
-        <div key={arr.indexOf(element)}>
-            <PostListItem key={arr.indexOf(element)} id={element._id} title={element.title} postedBy={element.postedBy} />
-            {(arr.indexOf(element) !== arr.length - 1) ? <Divider /> : ""}
-        </div>
+            <Box key={arr.indexOf(element)} width={900} sx={{ border: '2px solid #111', borderRadius: '1px', bgcolor: '#555' }}>
+                <PostListItem key={arr.indexOf(element)} id={element._id} title={element.title} postedBy={element.postedBy} postedAt={element.postedAt} />
+                {(arr.indexOf(element) !== arr.length - 1) ? <Divider /> : ""}
+            </Box>
         );
     });
-    
+
 
     return (
         <>
-        <div>
-                    <div>PostList Component</div>
             <List>
+                <Typography variant="h5" sx={{ border: '2px solid #111', bgcolor: '#111', fontWeight: 'bold' }}>Thread List</Typography>
                 {list}
             </List>
-        </div>
         </>
     )
 }

@@ -9,6 +9,7 @@ function ChangePassword({ setVisible, setIsSwitched, setMsg, userId }) {
     const URL2 = `${import.meta.env.VITE_BASEURL}/api/users/changePassword/${userId}`;
     const [formData2, setFormData2] = useState({ password: '', confirmPassword: '' });
 
+    // Function to set the form data state when the input is changed.
     const handleChange2 = (e) => {
         const { name, value } = e.target;
         setFormData2({
@@ -17,6 +18,7 @@ function ChangePassword({ setVisible, setIsSwitched, setMsg, userId }) {
         });
     }
 
+    // Function to handle the change of password
     const handleSubmit2 = async (e) => {
         try {
             e.preventDefault();

@@ -16,6 +16,7 @@ function Login() {
     const [msg, setMsg] = useState('');
     const navigate = useNavigate();
 
+    // Function to handle logging in a user.
     const handleSubmit = async (e) => {
         try {
 
@@ -46,8 +47,6 @@ function Login() {
                 <div>
 
                     <form onSubmit={handleSubmit}  >
-                        {/* <input type="text" placeholder="Enter your email" /> <br />
-                    <input type="password" placeholder="Enter your password" /> <br /> */}
                         <TextField name="email" id="email" label="Email" variant="outlined" margin="normal" required /> <br />
                         <TextField name="password" id="password" label="Password" variant="outlined" margin="normal" type="password" required /> <br />
                         <Button variant="contained" type="submit" sx={{ marginBottom: '1rem' }}>Login</Button>

@@ -22,6 +22,7 @@ function EditPost({ id, isHidden, setIsHidden, setIsEditing, title, body }) {
         color: ''
     });
 
+    // Function to set the form data state when the input is changed.
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -31,6 +32,7 @@ function EditPost({ id, isHidden, setIsHidden, setIsEditing, title, body }) {
         });
     }
 
+    // Function to handle the editing of a post.
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
@@ -52,15 +54,16 @@ function EditPost({ id, isHidden, setIsHidden, setIsEditing, title, body }) {
 
     return (
         <Box minHeight={350}>
-        <form style={{ height: '200px' }} onSubmit={handleSubmit} >
-            <FormControl sx={{ minWidth: 900 }} margin="normal" >
-                <TextField required name="title" id="title" label="Title" onChange={handleChange} defaultValue={title} /> <br />
-                <TextareaAutosize onChange={handleChange} style={{ fontFamily: 'system-ui' }} required name="body" id="body" minRows={7} maxRows={7} placeholder="Write your body here..." defaultValue={body} /> <br />
-                <Button variant="contained" type="submit" disabled={formData.body === body && formData.title === title}>Save</Button>
-            </FormControl>
-            <Typography color={msg?.color}><i>{msg?.text}</i></Typography>
-            <Button variant="contained" color="error" onClick={() => { setIsEditing(false) }} >Cancel</Button>
-        </form>
+            <form style={{ height: '200px' }} onSubmit={handleSubmit} >
+                <FormControl sx={{ minWidth: 900 }} margin="normal" >
+                    <TextField required name="title" id="title" label="Title" onChange={handleChange} defaultValue={title} /> <br />
+                    <TextareaAutosize onChange={handleChange} style={{ fontFamily: 'system-ui' }} required name="body" id="body" minRows={7} maxRows={7} placeholder="Write your body here..." defaultValue={body} /> <br />
+                    {/* If the title and body form input is the same as the previous title and body, the save button is disabled. */}
+                    <Button variant="contained" type="submit" disabled={formData.body === body && formData.title === title}>Save</Button>
+                </FormControl>
+                <Typography color={msg?.color}><i>{msg?.text}</i></Typography>
+                <Button variant="contained" color="error" onClick={() => { setIsEditing(false) }} >Cancel</Button>
+            </form>
         </Box>
     )
 

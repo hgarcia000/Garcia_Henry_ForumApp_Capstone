@@ -8,7 +8,7 @@ import { UserContext } from "../UserContext.js";
 
 function NavBar() {
 
-    const {currentUser} = useContext(UserContext);
+    const { currentUser } = useContext(UserContext);
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -16,23 +16,24 @@ function NavBar() {
                 <Toolbar>
                     <Typography variant="div" sx={{ flexGrow: 1 }}>
                         <Link to={'/'}>
-                         <Typography className="nav-link" >Home</Typography>
+                            <Typography className="nav-link" >Home</Typography>
                         </Link>
-                         </Typography>
+                    </Typography>
                     <Typography variant="div" sx={{ flexGrow: 1 }}>
                         {currentUser ? <Link to={'/profile/' + currentUser._id}>
-                        <Typography className="nav-link">{currentUser.username +"'s Profile"}</Typography>
+                            <Typography className="nav-link">{currentUser.username + "'s Profile"}</Typography>
                         </Link> : <Link to={'/login'}>
-                        <Typography className="nav-link" >Login</Typography>
+                            <Typography className="nav-link" >Login</Typography>
                         </Link>}
                     </Typography>
                     <Typography variant="div" sx={{ flexGrow: 0 }}>
                         {currentUser ? <Link to={'/logout'}>
-                        <Typography className="nav-link">Log Out</Typography>
+                            <Typography className="nav-link">Log Out</Typography>
                         </Link> : ''}
                     </Typography>
                 </Toolbar>
             </AppBar>
+            {/* Extra Toolbar component to prevent the NavBar from covering a part of a webpage. */}
             <Toolbar />
         </Box>
     )

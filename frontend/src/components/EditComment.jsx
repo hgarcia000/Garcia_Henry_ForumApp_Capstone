@@ -10,17 +10,19 @@ function EditComment({ id, setIsEditing, body }) {
 
     const URL = `${import.meta.env.VITE_BASEURL}/api/comments/edit/${id}`;
 
-    const {isHidden, setIsHidden} = useContext(HiddenContext);
+    const { isHidden, setIsHidden } = useContext(HiddenContext);
 
     const [formData, setFormData] = useState({
         body: body
     });
 
+    // Validation message for a more user-friendly experience.
     const [msg, setMsg] = useState({
         text: '',
         color: ''
     });
 
+    // Function to set the form data state when the input is changed.
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -30,6 +32,7 @@ function EditComment({ id, setIsEditing, body }) {
         });
     }
 
+    // Function to handle the editing of a comment.
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
@@ -53,6 +56,7 @@ function EditComment({ id, setIsEditing, body }) {
         <form style={{ height: '200px' }} onSubmit={handleSubmit} >
             <FormControl sx={{ minWidth: 900 }} margin="normal" >
                 <TextareaAutosize onChange={handleChange} style={{ fontFamily: 'system-ui' }} required name="body" id="body" minRows={7} maxRows={7} placeholder="Write your comment here..." defaultValue={body} /> <br />
+                {/* If the body form input is the same as the previous body, the save button is disabled. */}
                 <Button variant="contained" type="submit" disabled={formData.body === body}>Save</Button>
             </FormControl>
             <Typography color={msg?.color}><i>{msg?.text}</i></Typography>

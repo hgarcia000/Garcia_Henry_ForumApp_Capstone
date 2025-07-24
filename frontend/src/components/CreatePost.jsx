@@ -31,6 +31,7 @@ function CreatePost() {
         color: ''
     });
 
+    // Function to set the form data state when the input is changed.
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -40,6 +41,7 @@ function CreatePost() {
         });
     }
 
+    // Function to handle the creation of a post.
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
@@ -50,6 +52,8 @@ function CreatePost() {
                 text: 'Thread posted successfully!',
                 color: 'success'
             });
+
+            // Navigate to the post after a delay upon a successful HTTP POST method.
             setTimeout(() => { navigate('/post/' + _id) }, 800);
         } catch (error) {
             console.log('ERROR: ', error.message);
@@ -60,6 +64,7 @@ function CreatePost() {
         }
     }
 
+    // If user is not logged in, redirect them to the login component.
     useEffect(() => {
         if (!currentUser) {
             return navigate('/login');
@@ -70,6 +75,7 @@ function CreatePost() {
         <>
             <NavBar />
             <h1>Create a Thread</h1>
+            {/* Conditional rendering depending on whether the user is logged in. */}
             {currentUser ? <Box sx={{ minWidth: '300px', border: '2px solid #111', borderRadius: '10px', bgcolor: '#ccc' }}>
                 <form onSubmit={handleSubmit}>
                     <FormControl sx={{ minWidth: 150 }} margin="normal">

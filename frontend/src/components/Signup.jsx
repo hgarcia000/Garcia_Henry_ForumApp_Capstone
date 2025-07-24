@@ -12,7 +12,7 @@ const URL = import.meta.env.VITE_BASEURL + '/api/users/signup';
 
 function Signup() {
 
-    const {currentUser, setCurrentUser} = useContext(UserContext);
+    const { currentUser, setCurrentUser } = useContext(UserContext);
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -24,27 +24,30 @@ function Signup() {
         about: ''
     });
 
+    // Validation message for a more user-friendly experience.
     const [msg, setMsg] = useState({
         text: '',
         color: ''
     });
 
+    // Function to set the form data state when the input is changed.
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name === "username") {
             setFormData({
-            ...formData,
-            [name]: value.replace(" ", "_")
-        });
+                ...formData,
+                [name]: value.replace(" ", "_") //Replacing the whitespaces with underscores
+            });
         } else {
             setFormData({
-            ...formData,
-            [name]: value
-        });
+                ...formData,
+                [name]: value
+            });
         }
-        
+
     }
 
+    // Function to handle the creation of a new user.
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
