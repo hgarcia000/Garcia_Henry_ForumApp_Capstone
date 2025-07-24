@@ -36,7 +36,7 @@ function Signup() {
         if (name === "username") {
             setFormData({
                 ...formData,
-                [name]: value.replace(" ", "_") //Replacing the whitespaces with underscores
+                [name]: value.replace(" ", "_") //Replacing the whitespaces in a username with underscores
             });
         } else {
             setFormData({
