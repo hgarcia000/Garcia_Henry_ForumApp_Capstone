@@ -12,7 +12,7 @@ const URL = import.meta.env.VITE_BASEURL + '/api/users/signup';
 
 function Signup() {
 
-    const { currentUser, setCurrentUser } = useContext(UserContext);
+    const { setCurrentUser } = useContext(UserContext);
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
