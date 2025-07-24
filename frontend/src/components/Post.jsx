@@ -49,7 +49,6 @@ function Post() {
     const getPost = async () => {
         try {
             const result = await axios.get(URL);
-            console.log(result.data);
             setPost(result.data);
         } catch (error) {
             console.log('ERROR:', error.message);
