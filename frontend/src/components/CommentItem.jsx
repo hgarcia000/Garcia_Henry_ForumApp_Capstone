@@ -9,22 +9,40 @@ import Button from "@mui/material/Button";
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import FormControl from "@mui/material/FormControl";
 import EditComment from "./EditComment";
+import { HiddenContext } from "../HiddenContext";
 
 function CommentItem({ id, postedBy, body, postedAt, editedAt }) {
 
-    const URL = `${import.meta.env.VITE_BASEURL}/api/comments/edit/${id}`;
+    const URL = `${import.meta.env.VITE_BASEURL}/api/comments/delete/${id}`;
 
     const { currentUser } = useContext(UserContext);
+    const { isHidden, setIsHidden } = useContext(HiddenContext);
 
     const [isEditing, setIsEditing] = useState(false);
+
+    const handleDelete = async () => {
+        try {
+            const safe = confirm('Are you sure you want to delete this reply?');
+            if (safe) {
+                await axios.delete(URL);
+                if (isHidden === 1) {
+                    setIsHidden(true);
+                } else {
+                    setIsHidden(1);
+                }
+            }
+        } catch (error) {
+            console.log('ERROR: ', error.message);
+        }
+    }
 
     return (
         <Box width={950} sx={{ border: '2px solid #111', borderRadius: '3px', bgcolor: '#555' }}>
             <Link to={`/user/${postedBy}`}><Typography color="primary" sx={{ ":hover": { color: "#535bf2" } }} marginLeft={1} fontWeight={'bold'} textAlign={'justify'} ><i> {postedBy} replied: </i></Typography></Link>
             <Divider />
-            {isEditing? <EditComment id={id} setIsEditing={setIsEditing} body={body} /> : <Typography padding={2} minHeight={200} sx={{ textAlign: 'justify', bgcolor: '#333' }}>{body}</Typography>}
+            {isEditing ? <EditComment id={id} setIsEditing={setIsEditing} body={body} /> : <Typography padding={2} minHeight={200} sx={{ textAlign: 'justify', bgcolor: '#333' }}>{body}</Typography>}
             <Divider />
-            {currentUser?.username === postedBy ? <Typography paddingTop={0.5} paddingLeft={0.5} paddingRight={2} paddingBottom={1} sx={{ textAlign: 'left', color: 'gray', bgcolor: '#333', fontSize: '11pt', fontStyle: 'italic' }}><Button disabled={isEditing} variant="outlined" onClick={() => {setIsEditing(true)}}>Edit</Button></Typography> : ''}
+            {currentUser?.username === postedBy ? <Typography paddingTop={0.5} paddingLeft={0.5} paddingRight={2} paddingBottom={1} sx={{ textAlign: 'left', color: 'gray', bgcolor: '#333', fontSize: '11pt', fontStyle: 'italic' }}><Button disabled={isEditing} variant="outlined" onClick={() => { setIsEditing(true) }}>Edit</Button> <Button disabled={isEditing} color="error" variant="outlined" onClick={handleDelete}>Delete</Button></Typography> : ''}
             <Typography paddingRight={2} paddingBottom={1} sx={{ textAlign: 'right', color: 'gray', bgcolor: '#333', fontSize: '11pt', fontStyle: 'italic' }}>Posted at {postedAt}. {editedAt ? ` Last edited at ${editedAt}.` : ''}</Typography>
         </Box>
     )
