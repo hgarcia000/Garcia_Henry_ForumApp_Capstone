@@ -13,7 +13,7 @@ function EditComment({ id, setIsEditing, body }) {
     const {isHidden, setIsHidden} = useContext(HiddenContext);
 
     const [formData, setFormData] = useState({
-        body: ''
+        body: body
     });
 
     const [msg, setMsg] = useState({
@@ -53,7 +53,7 @@ function EditComment({ id, setIsEditing, body }) {
         <form style={{ height: '200px' }} onSubmit={handleSubmit} >
             <FormControl sx={{ minWidth: 900 }} margin="normal" >
                 <TextareaAutosize onChange={handleChange} style={{ fontFamily: 'system-ui' }} required name="body" id="body" minRows={7} maxRows={7} placeholder="Write your comment here..." defaultValue={body} /> <br />
-                <Button variant="contained" type="submit">Save</Button>
+                <Button variant="contained" type="submit" disabled={formData.body === body}>Save</Button>
             </FormControl>
             <Typography color={msg?.color}><i>{msg?.text}</i></Typography>
             <Button variant="contained" color="error" onClick={() => { setIsEditing(false) }} >Cancel</Button>
