@@ -12,6 +12,7 @@ import { UserContext } from "../UserContext";
 import CommentForm from "./CommentForm";
 import CommentItem from "./CommentItem";
 import { HiddenContext } from "../HiddenContext";
+import EditPost from "./EditPost";
 
 
 function Post() {
@@ -31,6 +32,7 @@ function Post() {
         comments: []
     });
     const [isHidden, setIsHidden] = useState(true);
+    const [isEditing, setIsEditing] = useState(false);
 
     const formRef = useRef(null);
 
@@ -61,8 +63,9 @@ function Post() {
                 <Typography variant="h3">{post.title}</Typography>
                 <Link to={`/user/${post.postedBy}`}><Typography color="primary" sx={{":hover": {color: "#535bf2"}}} marginLeft={1} fontWeight={'bold'} textAlign={'justify'} ><i> {post.postedBy} posted: </i></Typography></Link>
                 <Divider />
-                <Typography padding={2} minHeight={200} sx={{textAlign:'justify', bgcolor: '#333' }}>{post.body}</Typography>
+                { isEditing ? <EditPost id={paramsId} isHidden={isHidden} setIsHidden={setIsHidden} setIsEditing={setIsEditing} title={post.title} body={post.body} /> : <Typography padding={2} minHeight={200} sx={{ whiteSpace: 'pre-line', textAlign:'justify', bgcolor: '#333' }}>{post.body}</Typography>}
                 <Divider />
+                {currentUser?.username === post.postedBy ? <Typography paddingTop={0.5} paddingLeft={0.5} paddingRight={2} paddingBottom={1} sx={{ textAlign: 'left', color: 'gray', bgcolor: '#333', fontSize: '11pt', fontStyle: 'italic' }}><Button disabled={isEditing} variant="outlined" onClick={() => { setIsEditing(true) }}>Edit</Button> </Typography> : ''}
                 <Typography paddingRight={2} paddingBottom={1} sx={{textAlign:'right',color: 'gray', bgcolor: '#333', fontSize: '11pt', fontStyle: 'italic' }}>Posted at {post.postedAt}. {post.editedAt ? ` Last edited at ${post.editedAt}.` : ''}</Typography> 
             </Box>
 
