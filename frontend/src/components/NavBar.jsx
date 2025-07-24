@@ -19,7 +19,6 @@ function NavBar() {
                          <Typography className="nav-link" >Home</Typography>
                         </Link>
                          </Typography>
-                    <Typography sx={{ flexGrow: 1 }}>Users</Typography>
                     <Typography variant="div" sx={{ flexGrow: 1 }}>
                         {currentUser ? <Link to={'/profile/' + currentUser._id}>
                         <Typography className="nav-link">{currentUser.username +"'s Profile"}</Typography>
