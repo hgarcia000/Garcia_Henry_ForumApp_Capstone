@@ -10,6 +10,8 @@ import AddIcon from '@mui/icons-material/Add';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { UserContext } from "../UserContext";
 import CommentForm from "./CommentForm";
+import CommentItem from "./CommentItem";
+import { HiddenContext } from "../HiddenContext";
 
 
 function Post() {
@@ -57,7 +59,7 @@ function Post() {
         return (
             <Box width={950} marginBottom={2}  sx={{ border: '2px solid #111', borderRadius: '3px', bgcolor: '#555' }}>
                 <Typography variant="h3">{post.title}</Typography>
-                <Link to={`/user/${post.postedBy}`}><Typography color="primary" sx={{":hover": {color: "#535bf2"}}} marginLeft={1} fontWeight={'bold'} textAlign={'justify'} ><i> {post.postedBy} </i></Typography></Link>
+                <Link to={`/user/${post.postedBy}`}><Typography color="primary" sx={{":hover": {color: "#535bf2"}}} marginLeft={1} fontWeight={'bold'} textAlign={'justify'} ><i> {post.postedBy} posted: </i></Typography></Link>
                 <Divider />
                 <Typography padding={2} minHeight={200} sx={{textAlign:'justify', bgcolor: '#333' }}>{post.body}</Typography>
                 <Divider />
@@ -69,25 +71,19 @@ function Post() {
 
     const commentJSX = post.comments.map(element => {
         return(
-        <Box key={post.comments.indexOf(element)} width={950}  sx={{ border: '2px solid #111', borderRadius: '3px', bgcolor: '#555' }}>
-            <Link to={`/user/${element?.postedBy}`}><Typography color="primary" sx={{":hover": {color: "#535bf2"}}} marginLeft={1} fontWeight={'bold'} textAlign={'justify'} ><i> {element?.postedBy} </i></Typography></Link>
-                <Divider />
-                <Typography padding={2} minHeight={200} sx={{textAlign:'justify', bgcolor: '#333' }}>{element?.body}</Typography>
-                <Divider />
-                <Typography paddingRight={2} paddingBottom={1} sx={{textAlign:'right',color: 'gray', bgcolor: '#333', fontSize: '11pt', fontStyle: 'italic' }}>Posted at {element?.postedAt}. {element?.editedAt ? ` Last edited at ${element?.editedAt}.` : ''}</Typography> 
-        </Box>
+        <CommentItem key={post.comments.indexOf(element)} id={element._id} postedAt={element.postedAt} postedBy={element.postedBy} editedAt={element.editedAt} body={element.body} />
         )
     });
 
     return (
-        <>
+        <HiddenContext.Provider value={{isHidden, setIsHidden}}>
             <NavBar />
             {currentUser ? <Button color={isHidden ? 'primary' : 'error' } onClick={handleHidden} sx={{marginBottom: 1}} variant="outlined"> {isHidden ? <AddIcon /> : <CancelIcon />} {isHidden ? 'Reply to Thread' : 'Cancel Reply'}</Button> : ''}
             <PostJSX />
             {post.comments.length > 0 ? commentJSX : ''}
-            {currentUser ? <Button color={isHidden ? 'primary' : 'error' } onClick={handleHidden} sx={{marginBottom: 1}} variant="outlined"> {isHidden ? <AddIcon /> : <CancelIcon />} {isHidden ? 'Reply to Thread' : 'Cancel Reply'}</Button> : ''}
+            {currentUser ? <Button color={isHidden ? 'primary' : 'error' } onClick={handleHidden} sx={{marginTop: 1}} variant="outlined"> {isHidden ? <AddIcon /> : <CancelIcon />} {isHidden ? 'Reply to Thread' : 'Cancel Reply'}</Button> : <Link to={'/login'}><Button color="info" variant="contained" sx={{marginTop: 1}}>You must be logged in to reply.</Button></Link>}
             <div ref={formRef}>{!isHidden ? <CommentForm paramsId={paramsId} handleHidden={handleHidden} /> : ''}</div>
-        </>
+        </HiddenContext.Provider>
     )
 }
 
